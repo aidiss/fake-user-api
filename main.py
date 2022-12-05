@@ -13,6 +13,7 @@ import logging
 
 import requests
 import typer
+from fastapi import FastAPI
 
 JSON_PLACEHOLDER_API = 'https://jsonplaceholder.typicode.com'
 
@@ -22,10 +23,10 @@ LOGGING_LEVEL = "DEBUG"
 LOGGING_PATH = "log.log"
 LOGGING_FORMAT = '%(asctime)s; %(levelname)s %(message)s'
 
+app = FastAPI()
+
 
 logging.basicConfig(level=LOGGING_LEVEL, filename=LOGGING_PATH, format=LOGGING_FORMAT)
-
-app = typer.Typer()
 
 
 def main_main(user_ids: list[str], resources: list[str]):
@@ -40,7 +41,7 @@ def main_main(user_ids: list[str], resources: list[str]):
     return user_data
 
 
-def get_user_data(user_id: str, resource: list[str]):
+def get_user_data(user_id: str, resource: str):
     logging.info(f"Getting user data user_id: {user_id} resource, {resource})")
     params = {"userId": user_id}
     url = f'{JSON_PLACEHOLDER_API}/{resource}/'
@@ -66,5 +67,13 @@ def test_add_user_key_to_dict():
     assert "test_key" in d
 
 
+@app.get("/users/{user_id}/resource/{resource}")
+def read_item(user_id: str, resource: str):
+    # PADARYTI DARBA
+    data = get_user_data(user_id=user_id, resource=resource)
+    return data
+
+
 if __name__ == "__main__":
+    typer_app = typer.Typer()
     typer.run(main)
