@@ -24,7 +24,7 @@ python main.py --users=1 --users=2 --resources=todos
 
 - [x] requirements.txt, pip install -r requirements.txt
 - [x] Virtual environment
-- [ ] Git
+- [x] Git
 - [ ] Github
 - [x] CLI
 - [ ] Web API
