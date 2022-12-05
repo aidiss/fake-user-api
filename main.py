@@ -11,7 +11,6 @@ Testing:
 import json
 import logging
 
-import pytest
 import requests
 import typer
 
